@@ -428,20 +428,57 @@
         </div>
         @endif
 
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
+
         @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
         @endif
 
-        <button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
+        <button type="button" class="btn btn-primary mr-5 mb-4" data-toggle="modal" data-target="#importCSV">
+            IMPORT CSV
+        </button>
+
+        <!-- Import CSV -->
+        <div class="modal fade text-dark" id="importCSV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form method="post" action="{{ route('matchFish_importcsv') }}" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+                        </div>
+                        <div class="modal-body">
+
+                            {{ csrf_field() }}
+
+                            <label>Pilih file excel</label>
+                            <div class="form-group">
+                                <input type="file" name="file" accept="text/csv" required="required">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mr-5 mb-4" data-toggle="modal" data-target="#importExcel">
             IMPORT EXCEL
         </button>
 
         <!-- Import Excel -->
         <div class="modal fade text-dark" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form method="post" action="{{ route('matchFish_import') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('matchFish_importexcel') }}" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
@@ -465,8 +502,7 @@
             </div>
         </div>
 
-        <a href="/matchFish/export_excel" class="btn btn-success my-3 mr-5" target="_blank">EXPORT EXCEL</a>
-        <a href="{{ route('matchFish_statistik') }}" class="btn btn-warning mr-5">STATISTIK</a>
+        <a href="{{ route('matchFish_statistik') }}" class="btn btn-warning mr-5 mb-4">STATISTIK</a>
 
         <table class='table table-bordered'>
             <thead class="text-white">

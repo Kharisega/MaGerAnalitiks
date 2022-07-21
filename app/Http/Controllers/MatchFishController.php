@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MatchFish;
 use App\Imports\MatchFishImport;
+use App\Imports\MatchFishExcelImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
@@ -18,10 +19,21 @@ class MatchFishController extends Controller
 
     public function import_excel(Request $request)
     {
-        // dd($file->getClientOriginalName());
         $request->validate([
-            'file' => 'required|mimes:csv,text,xls,xlsx',
+            'file' => 'required|mimes:xls,xlsx',
 		]);
+        $file = $request->file('file');
+		$nama_file = rand().$file->getClientOriginalName();
+		$file->move('malamMatchFish',$nama_file);
+		Excel::import(new MatchFishExcelImport, public_path('/malamMatchFish/'.$nama_file));
+        return redirect()->back()->with('success', "Data Berhasil ditambahkan");
+    }
+
+    public function import_csv(Request $request)
+    {
+        if ($request->file('file')->getClientMimeType() != "text/csv") {
+            return redirect()->back()->with('error', "File yang diinputkan harus berupa .csv!");
+        }
         $file = $request->file('file');
 		$nama_file = rand().$file->getClientOriginalName();
 		$file->move('malamMatchFish',$nama_file);
