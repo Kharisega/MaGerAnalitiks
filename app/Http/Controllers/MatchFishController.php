@@ -59,7 +59,7 @@ class MatchFishController extends Controller
         for ($i=0; $i < count($playTime); $i++) { 
             $avePlayTime = $avePlayTime + $playTime[$i]->playTime;
         };
-        $avePlayTime = $avePlayTime/count($playTime);
+        ( $avePlayTime == 0 ) ? $avePlayTime == 0 : $avePlayTime = $avePlayTime/count($playTime);
 
         // ! Average Duration Play Time
         $durationPerPlay = DB::table('malamgoldenfish')->where('timestamp', $date)->select('durationPerPlay')->get();
@@ -68,7 +68,7 @@ class MatchFishController extends Controller
         for ($j=0; $j < count($durationPerPlay); $j++) {
             $aveDurationPerPlay = $aveDurationPerPlay + $durationPerPlay[$j]->durationPerPlay;
         };
-        $aveDurationPerPlay = $aveDurationPerPlay/count($durationPerPlay);
+        ( $aveDurationPerPlay == 0 ) ? $aveDurationPerPlay == 0 : $aveDurationPerPlay = $aveDurationPerPlay/count($playTime);
 
         $getDate = DB::table('malamgoldenfish')->select(DB::raw('GROUP_CONCAT(DISTINCT(timestamp)) as timestamp'))->get();
         $dateOption = (string)$getDate[0]->timestamp;
@@ -79,6 +79,77 @@ class MatchFishController extends Controller
             'avePlayTime'=> $avePlayTime,
             'aveDurationPerPlay' => $aveDurationPerPlay,
             'dateOption' => $dateOption,
+        ]);
+    }
+
+    public function perWeekView()
+    {
+        return view('matchFish.perWeek');
+    }
+
+    public function avePerWeek(Request $request)
+    {
+        $date1 = $request->date1;
+        $date2 = $request->date2;
+        $totalPlayer = DB::table('malamgoldenfish')->whereBetween('timestamp', [$date1, $date2])->count();
+        // dd($playTime);
+        
+        // ! Average Play Time
+        $playTime = DB::table('malamgoldenfish')->whereBetween('timestamp', [$date1, $date2])->select('playTime')->get();
+        $avePlayTime = 0;
+        for ($i=0; $i < count($playTime); $i++) { 
+            $avePlayTime = $avePlayTime + $playTime[$i]->playTime;
+        };
+        ( $avePlayTime == 0 ) ? $avePlayTime == 0 : $avePlayTime = $avePlayTime/count($playTime);
+
+        // ! Average Duration Play Time
+        $durationPerPlay = DB::table('malamgoldenfish')->whereBetween('timestamp', [$date1, $date2])->select('durationPerPlay')->get();
+        $aveDurationPerPlay = 0.0;
+        for ($j=0; $j < count($durationPerPlay); $j++) {
+            $aveDurationPerPlay = $aveDurationPerPlay + $durationPerPlay[$j]->durationPerPlay;
+        };
+        ( $aveDurationPerPlay == 0 ) ? $aveDurationPerPlay == 0 : $aveDurationPerPlay = $aveDurationPerPlay/count($playTime);
+
+        return view('matchFish.perWeek', [
+            'date1' => $date1,
+            'date2' => $date2,
+            'totalPlayer' => $totalPlayer,
+            'avePlayTime'=> $avePlayTime,
+            'aveDurationPerPlay' => $aveDurationPerPlay,
+        ]);
+    }
+
+    public function perYearView()
+    {
+        return view('matchFish.perYear');
+    }
+
+    public function avePerYear(Request $request)
+    {
+        $year = $request->year;
+        $totalPlayer = DB::table('malamgoldenfish')->whereRaw('YEAR(timestamp)', [$year])->count();
+        
+        // ! Average Play Time
+        $playTime = DB::table('malamgoldenfish')->whereRaw('YEAR(timestamp)', [$year])->select('playTime')->get();
+        $avePlayTime = 0;
+        for ($i=0; $i < count($playTime); $i++) { 
+            $avePlayTime = $avePlayTime + $playTime[$i]->playTime;
+        };
+        ( $avePlayTime == 0 ) ? $avePlayTime == 0 : $avePlayTime = $avePlayTime/count($playTime);
+
+        // ! Average Duration Play Time
+        $durationPerPlay = DB::table('malamgoldenfish')->whereRaw('YEAR(timestamp)', [$year])->select('durationPerPlay')->get();
+        $aveDurationPerPlay = 0.0;
+        for ($j=0; $j < count($durationPerPlay); $j++) {
+            $aveDurationPerPlay = $aveDurationPerPlay + $durationPerPlay[$j]->durationPerPlay;
+        };
+        ( $aveDurationPerPlay == 0 ) ? $aveDurationPerPlay == 0 : $aveDurationPerPlay = $aveDurationPerPlay/count($playTime);
+
+        return view('matchFish.perYear', [
+            'year' => $year,
+            'totalPlayer' => $totalPlayer,
+            'avePlayTime'=> $avePlayTime,
+            'aveDurationPerPlay' => $aveDurationPerPlay,
         ]);
     }
 }
