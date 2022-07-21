@@ -13,8 +13,8 @@ class MatchFishController extends Controller
 {
     public function index()
     {
-        $matchFish = MatchFish::paginate(10);
-        return view('matchFish', ['matchFish' => $matchFish]);
+        $matchFish = MatchFish::latest()->simplePaginate(10);
+        return view('matchFish.matchFish', ['matchFish' => $matchFish]);
     }
 
     public function import_excel(Request $request)
@@ -41,12 +41,14 @@ class MatchFishController extends Controller
         return redirect()->back()->with('success', "Data Berhasil ditambahkan");
     }
 
-    public function statistik()
+    public function perDayView()
     {
-        return view('statistik');
+        $getDate = DB::table('malamgoldenfish')->select(DB::raw('GROUP_CONCAT(DISTINCT(timestamp)) as timestamp'))->get();
+        $dateOption = (string)$getDate[0]->timestamp;
+        return view('matchFish.perDay', ['dateOption' => $dateOption]);
     }
 
-    public function find(Request $request)
+    public function avePerDay(Request $request)
     {
         $date = $request->date;
         $totalPlayer = DB::table('malamgoldenfish')->where('timestamp', $date)->count();
@@ -67,11 +69,16 @@ class MatchFishController extends Controller
             $aveDurationPerPlay = $aveDurationPerPlay + $durationPerPlay[$j]->durationPerPlay;
         };
         $aveDurationPerPlay = $aveDurationPerPlay/count($durationPerPlay);
-        return view('statistik', [
+
+        $getDate = DB::table('malamgoldenfish')->select(DB::raw('GROUP_CONCAT(DISTINCT(timestamp)) as timestamp'))->get();
+        $dateOption = (string)$getDate[0]->timestamp;
+        
+        return view('matchFish.perDay', [
             'date' => $date,
             'totalPlayer' => $totalPlayer,
             'avePlayTime'=> $avePlayTime,
-            'aveDurationPerPlay' => $aveDurationPerPlay
+            'aveDurationPerPlay' => $aveDurationPerPlay,
+            'dateOption' => $dateOption,
         ]);
     }
 }

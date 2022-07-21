@@ -18,12 +18,12 @@ Route::get('/', function () {
 });
 
 Route::get('/testing', function () {
-    return view('testing');
+    return view('layouts.sidebar');
 });
 
 Route::get('/matchFish', [App\Http\Controllers\MatchFishController::class, 'index'])->name('matchFish_index');
-Route::get('/matchFish/statistik', [App\Http\Controllers\MatchFishController::class, 'statistik'])->name('matchFish_statistik');
-Route::post('/matchFish/statistik/cari', [App\Http\Controllers\MatchFishController::class, 'find'])->name('matchFish_filter');
+Route::get('/matchFish/perDay', [App\Http\Controllers\MatchFishController::class, 'perDayView'])->name('matchFishDayView');
+Route::post('/matchFish/perDay/cari', [App\Http\Controllers\MatchFishController::class, 'avePerDay'])->name('matchFishPerDay');
 Route::post('/matchFish/import_csv', [App\Http\Controllers\MatchFishController::class, 'import_csv'])->name('matchFish_importcsv');
 Route::post('/matchFish/import_excel', [App\Http\Controllers\MatchFishController::class, 'import_excel'])->name('matchFish_importexcel');
 
