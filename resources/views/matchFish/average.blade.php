@@ -26,15 +26,38 @@
     $pecahkan = explode('-', $tanggal);
     return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
     }
+
+    $dateOptional = explode(',', $dateOption);
     @endphp
 
     <center class="py-4">
         <h4>Rata-rata Malam Golden Match Fish</h4>
     </center>
     <br><br>
-
     <div class="row">
         <div class="col">
+            <h6>Rata-rata Per Hari</h6>
+            <form action="{{ route('matchFish_exportcsvPerDay') }}" method="POST">
+                @csrf
+                <div class="row row-md-5">
+                    <div class="col col-md-6">
+                        <select name="date" id="date" class="form-select">
+                            @foreach ($dateOptional as $tanggal)
+                            <option value="{{ $tanggal }}">{{ tgl_indo($tanggal) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col col-md-5" style="position:relative; left:60px;">
+                        <button class="btn btn-success" type="submit">Export CSV</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><br>
+    
+    <div class="row">
+        <div class="col">
+            <h6>Rata-rata Per Range</h6>
             <form action="{{ route('matchFish_exportcsvPerWeek') }}" method="POST">
                 @csrf
                 <div class="row row-md-5">
@@ -51,61 +74,33 @@
                         </div>
                     </div>
                     <div class="col col-md-5" style="position:relative; left:60px; top: 32px;">
-                        <button class="btn btn-warning" type="submit">Export CSV</button>
+                        <button class="btn btn-success" type="submit">Export CSV</button>
                     </div>
                 </div>
             </form>
         </div>
-    </div><br><br><br>
+    </div><br>
+
     <div class="row">
-        <h4>Data yang didapat dari tanggal : {{ isset($date1) ? tgl_indo($date1) : '' }} hingga {{ isset($date2) ? tgl_indo($date2) : '' }}</h4>
-    </div>
-
-    <div class="row" style="margin-top:50px;">
         <div class="col">
-            <div class="card">
-                <div class="card-header p-3 pt-2">
-                    <div class="text-end pt-1">
-                        <p class="text-sm mb-0 text-capitalize text-dark">Jumlah User</p>
-                        <h4 class="mb-0"></h4>
+            <h6>Rata-rata Per Tahun</h6>
+            <form action="{{ route('matchFish_exportcsvPerYear') }}" method="POST">
+                @csrf
+                <div class="row row-md-5">
+                    <div class="col col-md-6">
+                        <select name="year" id="year" class="form-select">
+                            @for ($i = 1998; $i < 2500; $i++)
+                                <option value="{{ $i }}" {{ ($i == date("Y")) ? 'selected' : '' }}>{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col col-md-5" style="position:relative; left:60px;">
+                        <button class="btn btn-success" type="submit">Export CSV</button>
                     </div>
                 </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-dark">{{ isset($totalPlayer) ? $totalPlayer : '' }}</p>
-                </div>
-            </div>
+            </form>
         </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-header p-3 pt-2">
-                    <div class="text-end pt-1">
-                        <p class="text-sm mb-0 text-capitalize text-dark">Average Play Time Per Day</p>
-                        <h4 class="mb-0"></h4>
-                    </div>
-                </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-dark">{{ isset($avePlayTime) ? $avePlayTime : '' }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-header p-3 pt-2">
-                    <div class="text-end pt-1">
-                        <p class="text-sm mb-0 text-capitalize text-dark">Average Duration Per Play</p>
-                        <h4 class="mb-0"></h4>
-                    </div>
-                </div>
-                <hr class="dark horizontal my-0">
-                <div class="card-footer p-3">
-                    <p class="mb-0 text-dark">{{ isset($aveDurationPerPlay) ? $aveDurationPerPlay : '' }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    </div><br>
 </div>
 </div>
 

@@ -107,7 +107,7 @@
             </form>
         </div>
     </div>
-    <a href="{{ route('matchFish_exportcsv') }}" class="btn btn-success" style="margin-top: -25px;">Export CSV</a>
+    {{-- <a href="{{ route('matchFish_exportcsv') }}" class="btn btn-success" style="margin-top: -25px;">Export CSV</a> --}}
 
 
     <table class='table table-bordered'>

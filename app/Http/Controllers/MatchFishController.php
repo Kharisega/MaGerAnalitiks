@@ -9,6 +9,8 @@ use App\Imports\MatchFishExcelImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use App\Exports\MatchFishExport;
+use App\Exports\MatchFishExportWeek;
+use App\Exports\MatchFishExportYear;
 
 class MatchFishController extends Controller
 {
@@ -164,5 +166,32 @@ class MatchFishController extends Controller
         $date = $request->date;
         $nameFile = $date . 'DataAverage.csv';
         return Excel::download(new MatchFishExport($date), $nameFile);
+    }
+
+    public function exportCSVPerWeek(Request $request)
+    {
+        $date1 = $request->date1;
+        $date2 = $request->date2;
+        
+        $date = [];
+        array_push($date, $date1);
+        array_push($date, $date2);
+
+        $nameFile = $date1 . 'until' . $date2 .'DataAverage.csv';
+        return Excel::download(new MatchFishExportWeek($date), $nameFile);
+    }
+
+    public function exportCSVPerYear(Request $request)
+    {
+        $year = $request->year;
+        $nameFile = $year .'DataAverage.csv';
+        return Excel::download(new MatchFishExportYear($year), $nameFile);
+    }
+
+    public function matchFish_average(Type $var = null)
+    {
+        $getDate = DB::table('malamgoldenfish')->select(DB::raw('GROUP_CONCAT(DISTINCT(timestamp)) as timestamp'))->get();
+        $dateOption = (string)$getDate[0]->timestamp;
+        return view('matchFish.average', ['dateOption' => $dateOption]);
     }
 }

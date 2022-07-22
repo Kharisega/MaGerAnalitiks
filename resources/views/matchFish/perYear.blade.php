@@ -35,7 +35,7 @@
 
     <div class="row">
         <div class="col">
-            <form action="{{ route('matchFishPerYear') }}" method="POST">
+            <form action="{{ route('matchFish_exportcsvPerYear') }}" method="POST">
                 @csrf
                 <div class="row row-md-5">
                     <div class="col col-md-6">
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="col col-md-5" style="position:relative; left:60px;">
-                        <button class="btn btn-warning" type="submit">Cari</button>
+                        <button class="btn btn-success" type="submit">Export CSV</button>
                     </div>
                 </div>
             </form>

@@ -60,6 +60,7 @@
             <li><a class="nav-link" href="{{ route('matchFishDayView') }}">Average Data Per Day</a></li>
             <li><a class="nav-link" href="{{ route('matchFishWeekView') }}">Average Data Per Week</a></li>
             <li><a class="nav-link" href="{{ route('matchFishYearView') }}">Average Data Per Year</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
         </ul>
 
     </li>

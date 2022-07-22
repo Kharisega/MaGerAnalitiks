@@ -8,12 +8,12 @@ use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStrictNullComparison;
 
-class MatchFishExport implements FromCollection, WithCustomCsvSettings, WithHeadings, WithStrictNullComparison
+class MatchFishExportYear implements FromCollection, WithCustomCsvSettings, WithHeadings, WithStrictNullComparison
 {
-    protected $date;
+    protected $year;
 
-    function __construct($date) {
-            $this->date = $date;
+    function __construct($year) {
+            $this->year = $year;
     }
 
     public function getCsvSettings(): array
@@ -35,6 +35,6 @@ class MatchFishExport implements FromCollection, WithCustomCsvSettings, WithHead
 
     public function collection()
     {
-        return collect(MatchFish::getCustom($this->date));
+        return collect(MatchFish::exportPerYear($this->year));
     }
 }

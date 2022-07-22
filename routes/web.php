@@ -38,3 +38,9 @@ Route::post('/matchFish/import_csv', [App\Http\Controllers\MatchFishController::
 Route::post('/matchFish/import_excel', [App\Http\Controllers\MatchFishController::class, 'import_excel'])->name('matchFish_importexcel');
 // ? ExportCSVPerDay
 Route::post('/matchFish/export_csv', [App\Http\Controllers\MatchFishController::class, 'exportCSV'])->name('matchFish_exportcsvPerDay');
+// ? ExportCSVPerWeek
+Route::post('/matchFish/export_csvPerWeek', [App\Http\Controllers\MatchFishController::class, 'exportCSVPerWeek'])->name('matchFish_exportcsvPerWeek');
+// ? ExportCSVPerYear
+Route::post('/matchFish/export_csvPerYear', [App\Http\Controllers\MatchFishController::class, 'exportCSVPerYear'])->name('matchFish_exportcsvPerYear');
+// ? ExportAverage
+Route::get('/matchFish/average', [App\Http\Controllers\MatchFishController::class, 'matchFish_average'])->name('matchFish_average');
