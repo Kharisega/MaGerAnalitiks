@@ -29,7 +29,6 @@ class MalamGoldenFishDatabase extends Migration
             $table->float('freePerTicket');
             $table->float('silverPerTicket');
             $table->float('goldenPerTicket');
-            $table->timestamps();
         });
     }
 

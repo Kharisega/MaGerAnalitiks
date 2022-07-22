@@ -9,6 +9,12 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class MatchFishExport implements FromCollection, WithCustomCsvSettings, WithHeadings
 {
+    protected $date;
+
+    function __construct($date) {
+            $this->date = $date;
+    }
+
     public function getCsvSettings(): array
     {
         return [
@@ -18,27 +24,16 @@ class MatchFishExport implements FromCollection, WithCustomCsvSettings, WithHead
 
     public function headings(): array
     {
-        return ['eventName',
-        'eventVersion',
-        'goldenTicket',
-        'playDuration',
-        'playTime',
-        'playerID',
-        'score',
-        'silverTicket',
-        'stars',
-        'timestamp',
-        'durationPerPlay',
-        'freePerTicket',
-        'silverPerTicket',
-        'goldenPerTicket',];
+        return [
+            'dateTimestamp',
+            'totalPlayer',
+            'avePlayTime',
+            'aveDurationPerPlay'
+        ];
     }
 
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function collection()
     {
-        return MatchFish::all();
+        return collect(MatchFish::getCustom($this->date));
     }
 }

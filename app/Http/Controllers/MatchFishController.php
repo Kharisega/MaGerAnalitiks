@@ -8,12 +8,13 @@ use App\Imports\MatchFishImport;
 use App\Imports\MatchFishExcelImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use App\Exports\MatchFishExport;
 
 class MatchFishController extends Controller
 {
     public function index()
     {
-        $matchFish = MatchFish::latest()->simplePaginate(10);
+        $matchFish = MatchFish::simplePaginate(10);
         return view('matchFish.matchFish', ['matchFish' => $matchFish]);
     }
 
@@ -50,8 +51,11 @@ class MatchFishController extends Controller
 
     public function avePerDay(Request $request)
     {
+        $data = [];
         $date = $request->date;
         $totalPlayer = DB::table('malamgoldenfish')->where('timestamp', $date)->count();
+        array_push($data, $date);
+        array_push($data, $totalPlayer);
 
         // ! Average Play Time
         $playTime = DB::table('malamgoldenfish')->where('timestamp', $date)->select('playTime')->get();
@@ -60,6 +64,7 @@ class MatchFishController extends Controller
             $avePlayTime = $avePlayTime + $playTime[$i]->playTime;
         };
         ( $avePlayTime == 0 ) ? $avePlayTime == 0 : $avePlayTime = $avePlayTime/count($playTime);
+        array_push($data, $avePlayTime);
 
         // ! Average Duration Play Time
         $durationPerPlay = DB::table('malamgoldenfish')->where('timestamp', $date)->select('durationPerPlay')->get();
@@ -69,6 +74,7 @@ class MatchFishController extends Controller
             $aveDurationPerPlay = $aveDurationPerPlay + $durationPerPlay[$j]->durationPerPlay;
         };
         ( $aveDurationPerPlay == 0 ) ? $aveDurationPerPlay == 0 : $aveDurationPerPlay = $aveDurationPerPlay/count($playTime);
+        array_push($data, $aveDurationPerPlay);
 
         $getDate = DB::table('malamgoldenfish')->select(DB::raw('GROUP_CONCAT(DISTINCT(timestamp)) as timestamp'))->get();
         $dateOption = (string)$getDate[0]->timestamp;
@@ -151,5 +157,12 @@ class MatchFishController extends Controller
             'avePlayTime'=> $avePlayTime,
             'aveDurationPerPlay' => $aveDurationPerPlay,
         ]);
+    }
+
+    public function exportCSV(Request $request)
+    {
+        $date = $request->date;
+        $nameFile = $date . 'DataAverage.csv';
+        return Excel::download(new MatchFishExport($date), $nameFile);
     }
 }

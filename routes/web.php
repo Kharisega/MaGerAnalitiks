@@ -36,4 +36,5 @@ Route::post('/matchFish/perYear/cari', [App\Http\Controllers\MatchFishController
 // ? ImportCSVExcel
 Route::post('/matchFish/import_csv', [App\Http\Controllers\MatchFishController::class, 'import_csv'])->name('matchFish_importcsv');
 Route::post('/matchFish/import_excel', [App\Http\Controllers\MatchFishController::class, 'import_excel'])->name('matchFish_importexcel');
-
+// ? ExportCSVPerDay
+Route::post('/matchFish/export_csv', [App\Http\Controllers\MatchFishController::class, 'exportCSV'])->name('matchFish_exportcsvPerDay');

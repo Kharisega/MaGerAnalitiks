@@ -53,6 +53,25 @@
                         </div>
                     </form>
                 </div>
+            </div><br>
+        <div class="row">
+                <div class="col">
+                    <form action="{{ route('matchFish_exportcsvPerDay') }}" method="POST">
+                        @csrf
+                        <div class="row row-md-5">
+                            <div class="col col-md-6">
+                                <select name="date" id="date" class="form-select">
+                                    @foreach ($dateOptional as $tanggal)
+                                        <option value="{{ $tanggal }}">{{ tgl_indo($tanggal) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col col-md-5" style="position:relative; left:60px;">
+                                <button class="btn btn-success" type="submit">Export CSV</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div><br><br><br>
                         <div class="row">
                             <h2>Data yang didapat dari tanggal : {{ isset($date) ? tgl_indo($date) : '' }}</h2>
