@@ -64,55 +64,43 @@
 	<li class="nav-item">
 		<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item2" href="#"> Event <i class="bi small bi-caret-down-fill"></i> </a>
 		<ul id="menu_item2" class="submenu collapse" data-bs-parent="#nav_accordion">
-			<li><a class="nav-link" href="#">Submenu item 4 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
+			<li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
 		</ul>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item3" href="#"> Event <i class="bi small bi-caret-down-fill"></i> </a>
 		<ul id="menu_item3" class="submenu collapse" data-bs-parent="#nav_accordion">
-			<li><a class="nav-link" href="#">Submenu item 4 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
+			<li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
 		</ul>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item4" href="#"> Event <i class="bi small bi-caret-down-fill"></i> </a>
 		<ul id="menu_item4" class="submenu collapse" data-bs-parent="#nav_accordion">
-			<li><a class="nav-link" href="#">Submenu item 4 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
+			<li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
 		</ul>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item5" href="#"> Event <i class="bi small bi-caret-down-fill"></i> </a>
 		<ul id="menu_item5" class="submenu collapse" data-bs-parent="#nav_accordion">
-			<li><a class="nav-link" href="#">Submenu item 4 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
+			<li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
 		</ul>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item6" href="#"> Event <i class="bi small bi-caret-down-fill"></i> </a>
 		<ul id="menu_item6" class="submenu collapse" data-bs-parent="#nav_accordion">
-			<li><a class="nav-link" href="#">Submenu item 4 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
+			<li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
 		</ul>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item7" href="#"> Event <i class="bi small bi-caret-down-fill"></i> </a>
 		<ul id="menu_item7" class="submenu collapse" data-bs-parent="#nav_accordion">
-			<li><a class="nav-link" href="#">Submenu item 4 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 5 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
-		    <li><a class="nav-link" href="#">Submenu item 6 </a></li>
+			<li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
+            <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
 		</ul>
 	</li>
 </ul>
