@@ -57,9 +57,6 @@
         <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu_item1" href="#"> Event Golden Malam Match Fish <i class="bi small bi-caret-down-fill"></i> </a>
         <ul id="menu_item1" class="submenu collapse" data-bs-parent="#nav_accordion">
             <li><a class="nav-link" href="{{ route('matchFish_index') }}">All Data</a></li>
-            <li><a class="nav-link" href="{{ route('matchFishDayView') }}">Average Data Per Day</a></li>
-            <li><a class="nav-link" href="{{ route('matchFishWeekView') }}">Average Data Per Week</a></li>
-            <li><a class="nav-link" href="{{ route('matchFishYearView') }}">Average Data Per Year</a></li>
             <li><a class="nav-link" href="{{ route('matchFish_average') }}">Average Data</a></li>
         </ul>
 

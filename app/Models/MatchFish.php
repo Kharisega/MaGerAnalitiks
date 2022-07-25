@@ -48,6 +48,8 @@ class MatchFish extends Model
 
     public static function exportRange($date1, $date2)
     {
+        $date1 = date('Y-m-d', strtotime($date1. ' - '. 1 .' days'));
+
         $arr = [];
         for ($i=1; $date1 != $date2 ; $i++) { 
             $date1 = date('Y-m-d', strtotime($date1. ' + '. 1 .' days'));
